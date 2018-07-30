@@ -62,10 +62,10 @@ html {
 /*----- MAP -----*/
 
 #map-container {
-  height: 100vh;
+  height: calc(100% - 80px);
   width: 100%;
   position: fixed;
-  padding-top: 80px;
+  margin-top: 80px;
   
 }
 
