@@ -3,12 +3,17 @@ import './App.css';
 import Locations from './Locations';
 import MapComponent from './MapComponent';
 
+// ---YELP CREDENTIALS---
+// Client ID
+// 1x1PdOAt4vxaaIwpN5F6KA
+// API Key
+// Rx22JB6aX57cw9GBdDgSZoKUIaWfP6QqsFvZ_XN7PMz06TvnriVuS3Io80ia5dS990mF50OWpYmYKW3xFHyzkYUxGGUPyooGvWPpYgK4PsdbDjI5LnyC7vS4PB5iW3Yx
 
 class App extends Component {
 
   state = {
 
-    showListPane: false,
+    showListPane: true,
 
     locations: [
       { id: 1, title: 'DiFontaine\'s Pizza', latlng: { lat: 53.345182, lng: -6.267791 }},

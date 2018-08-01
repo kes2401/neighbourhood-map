@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 class MapComponent extends Component {
 
 	state = {
-		api: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAfNMG1qC4PcRir6FrLo_WObRGG-TZkAIc'
+		api: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAfNMG1qC4PcRir6FrLo_WObRGG-TZkAIc',
+		markers: []
 	}
 
 	loadMapScript = (src) => {
@@ -33,26 +34,40 @@ class MapComponent extends Component {
 		    scrollwheel: false
 		});
 
+		let largeInfoWindow = new window.google.maps.InfoWindow();
+		let bounds = new window.google.maps.LatLngBounds();
+
 		this.props.locations.forEach((location) => {
 			let marker = new window.google.maps.Marker({
 				position: location.latlng,
 				map: map,
 				animation: window.google.maps.Animation.DROP,
-				title: location.title
+				title: location.title,
+				id: location.id
 			});
-			// this.placeMarker(location);
+
+			marker.addListener('click', () => {
+				this.populateInfoWindow(marker, largeInfoWindow, map);
+			})
+
+			this.setState(prevState => ({
+				markers: [...prevState.markers, marker]
+			}))
+			
+			bounds.extend(marker.position);
 		});
 
+		map.fitBounds(bounds);
 		
 	}
 
-	// placeMarker = (location) => {
-	// 	let marker = new window.google.maps.Marker({
-	// 		position: location.latlng,
-	// 		map: this.map,
-	// 		title: location.title
-	// 	});
-	// }
+	populateInfoWindow = (marker, infoWindow, map) => {
+		if (infoWindow.marker !== marker) {
+			infoWindow.marker = marker;
+			infoWindow.setContent('<br><div><strong>' + marker.title + '</strong></div>');
+			infoWindow.open(map, marker);
+		}
+	}
 
 	componentDidMount = () => {
 		this.loadMapScript(this.state.api).then(this.initMap);
@@ -72,5 +87,3 @@ class MapComponent extends Component {
 }
 
 export default MapComponent;
-
-//<script async defer src={`https://maps.googleapis.com/maps/api/js?key=${this.state.apiKey}&callback=${this.initMap}`} type="text/javascript"></script>
