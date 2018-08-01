@@ -36,7 +36,7 @@ html {
 .hamburger-icon {
   width: 45px;
   height: 38px;
-  border: 1px solid #ddd;
+  /*border: 1px solid #ddd;*/
   border-radius: 8px;
   position: absolute;
   cursor: pointer;
@@ -82,7 +82,7 @@ html {
   height: 88vh;
   background-color: #333;
   position: fixed;
-  top: 12vh;
+  top: 80px;
   padding: 20px;
   z-index: 999;
   /*display: none;*/
