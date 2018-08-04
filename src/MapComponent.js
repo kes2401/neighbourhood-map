@@ -1,17 +1,5 @@
 import React, { Component } from 'react';
 
-// ---FOURSQUARE CREDENTIALS---
-// Client ID : T4AXUT13TQVV3TQ4EQ4OJ111XZFE2UI0KTAK3QMEON2OBRHH
-// Client Secret : QU3QEHMEUQOMVN0JHKAD1ROEG3DY5B2ATVRBMQ0YNKI0YQOC
-
-
-// ---YELP CREDENTIALS---
-// Client ID
-// 1x1PdOAt4vxaaIwpN5F6KA
-// API Key
-// Rx22JB6aX57cw9GBdDgSZoKUIaWfP6QqsFvZ_XN7PMz06TvnriVuS3Io80ia5dS990mF50OWpYmYKW3xFHyzkYUxGGUPyooGvWPpYgK4PsdbDjI5LnyC7vS4PB5iW3Yx
-
-
 class MapComponent extends Component {
 
 	state = {
@@ -20,6 +8,16 @@ class MapComponent extends Component {
 		fSSecret: 'QU3QEHMEUQOMVN0JHKAD1ROEG3DY5B2ATVRBMQ0YNKI0YQOC',
 	}
 
+	componentDidMount = () => {
+		this.loadMapScript(this.state.api)
+		.then(this.initMap)
+		.catch(err => {
+			console.log(err);
+			document.getElementById('map').textContent = 'Error loading map! Try again later.';
+		});
+	}
+
+	// load Google Maps script
 	loadMapScript = (src) => {
 		return new Promise((resolve, reject) => {
 		    let script = document.createElement('script');
@@ -34,6 +32,7 @@ class MapComponent extends Component {
 		  });
 	}
 
+	// initialise map, add all markers for locations and add click functionality to load marker infowindows
 	initMap = () => {
 		  
 	 	let loc = {
@@ -72,10 +71,11 @@ class MapComponent extends Component {
 
 		map.fitBounds(bounds);
 
+		// update App state with map and markers objects
 		this.props.onMapStart(map, markersArr);
-		
 	}
 
+	// populate InfoWindows on marker click with data fetched from third-party API
 	populateInfoWindow = (location, marker, infoWindow, map) => {
 		if (infoWindow.marker !== marker) {
 			infoWindow.marker = marker;
@@ -103,14 +103,6 @@ class MapComponent extends Component {
 
 			infoWindow.open(map, marker);
 		}
-	}
-
-	componentDidMount = () => {
-		this.loadMapScript(this.state.api)
-		.then(this.initMap)
-		.catch(err => {
-			
-		});
 	}
 
 	render() {

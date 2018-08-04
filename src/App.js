@@ -8,8 +8,9 @@ class App extends Component {
 
   state = {
 
-    showListPane: true,
+    showListPane: false,
 
+    // Default hardcoded locations
     initLocations: [
       { id: 1, title: 'DiFontaine\'s Pizza', latlng: { lat: 53.345182, lng: -6.267791 }, searchTag: 'fontaine'},
       { id: 2, title: 'Leo Burdock\'s', latlng: { lat: 53.343004, lng: -6.270026 }, searchTag: 'burdock'},
@@ -104,10 +105,12 @@ class App extends Component {
     this.setState({markers: allMarkers});
   }
 
+  // functionlity for when a location list item is clicked
   selectFromList = (placeName) => {
     this.triggerMarker(placeName);
   }
 
+  // trigger the marker on the map as if it had been clicked
   triggerMarker = (locationName) => {
     let targetMarker;
     this.state.markers.forEach(marker => {
@@ -120,6 +123,7 @@ class App extends Component {
     this.bounceMarker(targetMarker);
   }
 
+  // function to animate a marker
   bounceMarker = (marker) => {
     if (marker.getAnimation() !== null) {
       marker.setAnimation(null);
@@ -129,6 +133,7 @@ class App extends Component {
     }
   }
 
+  // toggle location list component visibility
   toggleListPane = () => {
     this.state.showListPane ? this.setState({ showListPane: false }) : this.setState({ showListPane: true });
   }
