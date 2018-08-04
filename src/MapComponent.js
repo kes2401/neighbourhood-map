@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 
+// ---FOURSQUARE CREDENTIALS---
+// Client ID : T4AXUT13TQVV3TQ4EQ4OJ111XZFE2UI0KTAK3QMEON2OBRHH
+// Client Secret : QU3QEHMEUQOMVN0JHKAD1ROEG3DY5B2ATVRBMQ0YNKI0YQOC
+
+
+// ---YELP CREDENTIALS---
+// Client ID
+// 1x1PdOAt4vxaaIwpN5F6KA
+// API Key
+// Rx22JB6aX57cw9GBdDgSZoKUIaWfP6QqsFvZ_XN7PMz06TvnriVuS3Io80ia5dS990mF50OWpYmYKW3xFHyzkYUxGGUPyooGvWPpYgK4PsdbDjI5LnyC7vS4PB5iW3Yx
+
+
 class MapComponent extends Component {
 
 	state = {
 		api: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAfNMG1qC4PcRir6FrLo_WObRGG-TZkAIc',
+		yelpKey: 'Rx22JB6aX57cw9GBdDgSZoKUIaWfP6QqsFvZ_XN7PMz06TvnriVuS3Io80ia5dS990mF50OWpYmYKW3xFHyzkYUxGGUPyooGvWPpYgK4PsdbDjI5LnyC7vS4PB5iW3Yx',
+		fSID: 'T4AXUT13TQVV3TQ4EQ4OJ111XZFE2UI0KTAK3QMEON2OBRHH',
+		fSSecret: 'QU3QEHMEUQOMVN0JHKAD1ROEG3DY5B2ATVRBMQ0YNKI0YQOC',
 		markers: []
 	}
 
@@ -34,7 +49,7 @@ class MapComponent extends Component {
 		    scrollwheel: false
 		});
 
-		let largeInfoWindow = new window.google.maps.InfoWindow();
+		let largeInfoWindow = new window.google.maps.InfoWindow({ maxWidth: 300 });
 		let bounds = new window.google.maps.LatLngBounds();
 
 		this.props.locations.forEach((location) => {
@@ -47,7 +62,7 @@ class MapComponent extends Component {
 			});
 
 			marker.addListener('click', () => {
-				this.populateInfoWindow(marker, largeInfoWindow, map);
+				this.populateInfoWindow(location, marker, largeInfoWindow, map);
 			})
 
 			this.setState(prevState => ({
@@ -61,10 +76,31 @@ class MapComponent extends Component {
 		
 	}
 
-	populateInfoWindow = (marker, infoWindow, map) => {
+	populateInfoWindow = (location, marker, infoWindow, map) => {
 		if (infoWindow.marker !== marker) {
 			infoWindow.marker = marker;
-			infoWindow.setContent('<br><div><strong>' + marker.title + '</strong></div>');
+			
+			let apiString = `https://api.foursquare.com/v2/venues/search?ll=${location.latlng.lat},${location.latlng.lng}&query=${location.searchTag}&client_id=${this.state.fSID}&client_secret=${this.state.fSSecret}&v=20180803`;
+			
+			fetch(apiString).then(res => res.json())
+				.then(data => (fetch(`https://api.foursquare.com/v2/venues/${data.response.venues[0].id}?&client_id=${this.state.fSID}&client_secret=${this.state.fSSecret}&v=20180803`)
+								.then(res => res.json())
+								.then(data => (
+									infoWindow.setContent(
+										'<br><h5><strong>' + marker.title + '</strong></h5>' +
+										'<p class="location-category">' + data.response.venue.categories[0].name + '</p>' + 
+										'<p class="standard-text">' + data.response.venue.location.formattedAddress[0] + ', Dublin City</p>' +
+										'<div><img class="location-img" src="' + data.response.venue.bestPhoto.prefix + '180x180' + data.response.venue.bestPhoto.suffix + '" alt="' + marker.title + ' image" /></div>' +
+										'<p class="standard-text">' + (data.response.venue.description ? data.response.venue.description : '') + '</p>' +
+										'<p>Rating: ' + data.response.venue.rating + '</p>' +
+										'<a href="' + data.response.venue.shortUrl + '" target="_blank">Foursquare page</a>'
+									)
+				))
+			)).catch(err => {
+				console.log(err);
+				infoWindow.setContent('<br><p class="standard-text">Sorry, could not load content from Foursquare API!</p>');
+			});
+
 			infoWindow.open(map, marker);
 		}
 	}
