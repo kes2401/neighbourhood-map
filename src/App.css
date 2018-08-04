@@ -119,13 +119,14 @@
 
 .location-list {
   width: 260px;
-  height: 88vh;
+  height: calc(100% - (80px + 48px));
   background-color: #253959;
   position: fixed;
   top: 80px;
   padding: 20px;
   z-index: 999;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .list-item {
