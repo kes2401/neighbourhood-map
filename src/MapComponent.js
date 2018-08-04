@@ -65,10 +65,6 @@ class MapComponent extends Component {
 			})
 
 			markersArr.push(marker);
-
-			// this.setState(prevState => ({
-			// 	markers: [...prevState.markers, marker]
-			// }))
 			
 			bounds.extend(marker.position);
 		});
@@ -111,8 +107,6 @@ class MapComponent extends Component {
 	componentDidMount = () => {
 		this.loadMapScript(this.state.api).then(this.initMap);
 	}
-
-
 
 	render() {
 

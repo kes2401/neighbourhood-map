@@ -16,10 +16,10 @@ class Locations extends Component {
 		return (
 			<div className="location-list">
 				<div className="filter-list">
-					<input type="text" className="filter-input" value={this.state.query} onChange={(event) => (
-						this.updateQuery(event.target.value),
-						this.props.onUpdateQuery(event.target.value)
-					)} placeholder="Search location..."/>
+					<input type="text" className="filter-input" value={this.state.query} onChange={(event) => {
+						this.updateQuery(event.target.value);
+						this.props.onUpdateQuery(event.target.value);
+					}} placeholder="Search location..."/>
 				</div>
 				<div className="list-results">
 					<ul className="listing">

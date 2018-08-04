@@ -62,30 +62,46 @@ class App extends Component {
 
     if (query === '') {
       this.setState({currentLocations: this.state.initLocations});
+      this.state.markers.forEach(marker => {
+        marker.setMap(this.state.map);
+      });
     }
 
     this.setState({query: query})
 
+    // filter locations search and set currentLocations state to current filter results
     let res = this.state.initLocations.filter(location => (
       location.title.toLowerCase().includes(query.toLowerCase())
     ));
     this.setState({currentLocations: res});
-
+    this.updateMapMarkers(res);
   }
 
   updateMapState = (map, markers) => {
     this.setState({ map: map, markers: markers })
   }
 
-  updateMap = () => {
+  updateMapMarkers = (currentLocations) => {
 
+    // Set map markers active according to current locations
+    // temporarily remove all markers
+    let allMarkers = this.state.markers;
 
+    allMarkers.forEach(marker => {
+      marker.setMap(null);
+    });
 
+    // for each current location add marker to the map
+    currentLocations.forEach(location => {
+      for (let i = 0; i < allMarkers.length; i++) {
+        if (allMarkers[i].title === location.title) {
+          allMarkers[i].setMap(this.state.map);
+        }
+      }
+    });
 
+    this.setState({markers: allMarkers});
   }
-
-
-
 
   toggleListPane = () => {
     this.state.showListPane ? this.setState({ showListPane: false }) : this.setState({ showListPane: true });
