@@ -52,6 +52,8 @@ class App extends Component {
 
     query: '',
 
+    map: {},
+
     markers: []
 
   }
@@ -69,9 +71,19 @@ class App extends Component {
     ));
     this.setState({currentLocations: res});
 
+  }
+
+  updateMapState = (map, markers) => {
+    this.setState({ map: map, markers: markers })
+  }
+
+  updateMap = () => {
+
+
 
 
   }
+
 
 
 
@@ -90,8 +102,8 @@ class App extends Component {
           </div>
           <h1 className="main-header-text">Great Places of Dublin</h1>
         </header>
-        { this.state.showListPane ? <Locations locations={this.state.currentLocations} onUpdateQuery={this.updateQuery}/> : null}
-        <MapComponent locations={this.state.currentLocations} />
+        { this.state.showListPane ? <Locations locations={this.state.currentLocations} onUpdateQuery={this.updateQuery} /> : null}
+        <MapComponent locations={this.state.currentLocations} onMapStart={this.updateMapState} />
         <Footer />
       </div>
     );

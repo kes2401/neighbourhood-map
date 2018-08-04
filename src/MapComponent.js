@@ -18,7 +18,6 @@ class MapComponent extends Component {
 		api: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAfNMG1qC4PcRir6FrLo_WObRGG-TZkAIc',
 		fSID: 'T4AXUT13TQVV3TQ4EQ4OJ111XZFE2UI0KTAK3QMEON2OBRHH',
 		fSSecret: 'QU3QEHMEUQOMVN0JHKAD1ROEG3DY5B2ATVRBMQ0YNKI0YQOC',
-		markers: []
 	}
 
 	loadMapScript = (src) => {
@@ -50,6 +49,7 @@ class MapComponent extends Component {
 
 		let largeInfoWindow = new window.google.maps.InfoWindow({ maxWidth: 300 });
 		let bounds = new window.google.maps.LatLngBounds();
+		let markersArr = [];
 
 		this.props.locations.forEach((location) => {
 			let marker = new window.google.maps.Marker({
@@ -64,14 +64,18 @@ class MapComponent extends Component {
 				this.populateInfoWindow(location, marker, largeInfoWindow, map);
 			})
 
-			this.setState(prevState => ({
-				markers: [...prevState.markers, marker]
-			}))
+			markersArr.push(marker);
+
+			// this.setState(prevState => ({
+			// 	markers: [...prevState.markers, marker]
+			// }))
 			
 			bounds.extend(marker.position);
 		});
 
 		map.fitBounds(bounds);
+
+		this.props.onMapStart(map, markersArr);
 		
 	}
 
