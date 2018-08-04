@@ -2,7 +2,7 @@
 
 This is a single page application featuring a neighbourhood map with highlighted locations, third-party data about those locations and various ways to browse the content.
 
-The app was built with React to develop the UI and help manage the codebase.
+The app was built with React to develop the UI and help manage the codebase, and with the [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/reference/3.exp/) while fetching third-party data about all locations from [Foursquare](https://foursquare.com/).
 
 This app was completed as part of the Udacity's Front-End Web Developer Nanodegree program.
 
