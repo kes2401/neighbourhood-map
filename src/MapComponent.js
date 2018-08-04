@@ -16,7 +16,6 @@ class MapComponent extends Component {
 
 	state = {
 		api: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAfNMG1qC4PcRir6FrLo_WObRGG-TZkAIc',
-		yelpKey: 'Rx22JB6aX57cw9GBdDgSZoKUIaWfP6QqsFvZ_XN7PMz06TvnriVuS3Io80ia5dS990mF50OWpYmYKW3xFHyzkYUxGGUPyooGvWPpYgK4PsdbDjI5LnyC7vS4PB5iW3Yx',
 		fSID: 'T4AXUT13TQVV3TQ4EQ4OJ111XZFE2UI0KTAK3QMEON2OBRHH',
 		fSSecret: 'QU3QEHMEUQOMVN0JHKAD1ROEG3DY5B2ATVRBMQ0YNKI0YQOC',
 		markers: []
@@ -98,7 +97,7 @@ class MapComponent extends Component {
 				))
 			)).catch(err => {
 				console.log(err);
-				infoWindow.setContent('<br><p class="standard-text">Sorry, could not load content from Foursquare API!</p>');
+				infoWindow.setContent('<br><p class="standard-text">Sorry, could not load content from Foursquare!</p>');
 			});
 
 			infoWindow.open(map, marker);
@@ -109,14 +108,15 @@ class MapComponent extends Component {
 		this.loadMapScript(this.state.api).then(this.initMap);
 	}
 
+
+
 	render() {
 
 		return (
 			    <main id="maincontent">
 			    	<section id="map-container">
 			        	<div id="map" role="application">Loading map...</div>
-			      	</section>
-			        
+			      	</section>   
 			    </main>
 		)
 	}

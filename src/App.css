@@ -141,6 +141,7 @@
 .filter-input {
   padding: 4px;
   margin-bottom: 12px;
+  font-family: 'Roboto', sans-serif;
 }
 
 /*----- RESPONSIVENESS -----*/
