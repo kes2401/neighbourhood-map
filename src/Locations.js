@@ -19,7 +19,7 @@ class Locations extends Component {
 					<input type="text" className="filter-input" value={this.state.query} onChange={(event) => {
 						this.updateQuery(event.target.value);
 						this.props.onUpdateQuery(event.target.value);
-					}} placeholder="Search location..."/>
+					}} placeholder="Search location..." aria-label="Filter location list"/>
 				</div>
 				<div className="list-results">
 					<ul className="listing">

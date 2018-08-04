@@ -140,14 +140,17 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App" role="application">
         <header className="App-header">
-          <div className="hamburger-icon" onClick={this.toggleListPane}>
+          <div className="hamburger-icon" onClick={this.toggleListPane} onKeyDown={event => {
+            if (event.key === 'Enter') {
+              this.toggleListPane();
+            }}} tabIndex="0" role="button">
             <div className="hamburger-menu-button"></div>
             <div className="hamburger-menu-button"></div>
             <div className="hamburger-menu-button"></div>
           </div>
-          <h1 className="main-header-text">Great Places of Dublin</h1>
+          <h1 className="main-header-text" tabIndex="0" >Great Places of Dublin</h1>
         </header>
         { this.state.showListPane ? <Locations locations={this.state.currentLocations} onUpdateQuery={this.updateQuery} onListSelection={this.selectFromList} /> : null}
         <MapComponent locations={this.state.currentLocations} onMapStart={this.updateMapState} animateMarker={this.bounceMarker} />

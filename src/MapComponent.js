@@ -109,8 +109,9 @@ class MapComponent extends Component {
 
 		return (
 			    <main id="maincontent">
+     				<a href="#creator" className="skip-link">Skip to footer information</a>
 			    	<section id="map-container">
-			        	<div id="map" role="application">Loading map...</div>
+			        	<div id="map">Loading map...</div>
 			      	</section>   
 			    </main>
 		)

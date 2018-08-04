@@ -159,5 +159,22 @@
     padding: 6px;
   }
 
+}
 
+ /* ---------- Skip Link ---------- */
+ 
+a.skip-link {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  background-color: #ccc;
+  color: #222;
+  padding: 6px;
+  z-index: 500; 
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.7rem; 
+}
+
+a.skip-link:focus {
+  top: 0;
 }
