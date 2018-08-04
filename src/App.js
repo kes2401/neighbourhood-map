@@ -30,6 +30,7 @@ class App extends Component {
       { id: 17, title: 'Phoenix Park', latlng: { lat: 53.357404, lng: -6.319303}, searchTag: 'phoenix'}
     ],
 
+    // currentLocations state array will hold currently filtered locations, starting with full initial location list by default
     currentLocations:  [
       { id: 1, title: 'DiFontaine\'s Pizza', latlng: { lat: 53.345182, lng: -6.267791 }, searchTag: 'fontaine'},
       { id: 2, title: 'Leo Burdock\'s', latlng: { lat: 53.343004, lng: -6.270026 }, searchTag: 'burdock'},
@@ -103,6 +104,31 @@ class App extends Component {
     this.setState({markers: allMarkers});
   }
 
+  selectFromList = (placeName) => {
+    this.triggerMarker(placeName);
+  }
+
+  triggerMarker = (locationName) => {
+    let targetMarker;
+    this.state.markers.forEach(marker => {
+      if (marker.title === locationName) {
+        targetMarker = marker;
+      }
+    });
+    new window.google.maps.event.trigger(targetMarker, 'click');
+
+    this.bounceMarker(targetMarker);
+  }
+
+  bounceMarker = (marker) => {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(window.google.maps.Animation.BOUNCE);
+      window.setTimeout(() => {marker.setAnimation(null)}, 300);
+    }
+  }
+
   toggleListPane = () => {
     this.state.showListPane ? this.setState({ showListPane: false }) : this.setState({ showListPane: true });
   }
@@ -118,8 +144,8 @@ class App extends Component {
           </div>
           <h1 className="main-header-text">Great Places of Dublin</h1>
         </header>
-        { this.state.showListPane ? <Locations locations={this.state.currentLocations} onUpdateQuery={this.updateQuery} /> : null}
-        <MapComponent locations={this.state.currentLocations} onMapStart={this.updateMapState} />
+        { this.state.showListPane ? <Locations locations={this.state.currentLocations} onUpdateQuery={this.updateQuery} onListSelection={this.selectFromList} /> : null}
+        <MapComponent locations={this.state.currentLocations} onMapStart={this.updateMapState} animateMarker={this.bounceMarker} />
         <Footer />
       </div>
     );

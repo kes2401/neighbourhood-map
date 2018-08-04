@@ -24,7 +24,7 @@ class Locations extends Component {
 				<div className="list-results">
 					<ul className="listing">
 						{this.props.locations.map((location) => (
-							<LocationItem key={location.id} locationName={location.title} />
+							<LocationItem key={location.id} locationName={location.title} onLocationSelect={this.props.onListSelection} />
 						))}
 					</ul>
 				</div>

@@ -62,6 +62,7 @@ class MapComponent extends Component {
 
 			marker.addListener('click', () => {
 				this.populateInfoWindow(location, marker, largeInfoWindow, map);
+				this.props.animateMarker(marker);
 			})
 
 			markersArr.push(marker);
@@ -105,7 +106,11 @@ class MapComponent extends Component {
 	}
 
 	componentDidMount = () => {
-		this.loadMapScript(this.state.api).then(this.initMap);
+		this.loadMapScript(this.state.api)
+		.then(this.initMap)
+		.catch(err => {
+			
+		});
 	}
 
 	render() {

@@ -131,11 +131,16 @@
 .list-item {
   height: 42px;
   padding-top: 8px;
+  cursor: pointer;
 }
 
 .list-item-text {
   color: #ddd;
   text-align: center;
+}
+
+.list-item-text:hover {
+  color: #fff;
 }
 
 .filter-input {
