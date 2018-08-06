@@ -140,7 +140,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" role="application">
+      <div className="App">
         <header className="App-header">
           <div className="hamburger-icon" onClick={this.toggleListPane} onKeyDown={event => {
             if (event.key === 'Enter') {
