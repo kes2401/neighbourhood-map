@@ -15,6 +15,15 @@ To get started:
 * start the development server with `npm start`
 
 
+## Offline First
+
+The production build of this app includes a Service Worker so that the app loads from a cache on future visits. This makes it a fully functional, offline first Progressive Web App and future vists to the app will render even when there is no network access.
+
+To build the app for production you should run `npm run build` which will include the service worker and prepare the app for deployment. The app is built to the `build` folder.
+
+The service worker will not work in development mode.
+
+
 ## Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
