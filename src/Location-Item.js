@@ -8,7 +8,7 @@ const locationItem = (props) => {
 			if (event.key === 'Enter') {
 				props.onLocationSelect(event.target.textContent);
 			}
-		}}>
+		}} role="button">
 			<p className="list-item-text" onClick={event => props.onLocationSelect(event.target.textContent)} >{props.locationName}</p>
 		</li>
 	)
