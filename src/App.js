@@ -26,9 +26,10 @@ class App extends Component {
       { id: 12, title: 'Zizzi', latlng: { lat: 53.343476, lng: -6.260308}, searchTag: 'zizzi'},
       { id: 13, title: 'St Stephen\'s Green', latlng: { lat: 53.336898, lng: -6.259765}, searchTag: 'stephen'},
       { id: 14, title: 'Cowtown Cafe', latlng: { lat: 53.352355, lng: -6.284246}, searchTag: 'cowtown'},
-      { id: 15, title: 'Iveagh Gardens', latlng: { lat: 53.335138, lng: -6.261034}, searchTag: 'iveagh'},
-      { id: 16, title: 'Dublin Zoo', latlng: { lat: 53.353270, lng: -6.304371}, searchTag: 'zoo'},
-      { id: 17, title: 'Phoenix Park', latlng: { lat: 53.357404, lng: -6.319303}, searchTag: 'phoenix'}
+      { id: 15, title: 'Bunsen', latlng: { lat: 53.345578, lng: -6.264363}, searchTag: 'bunsen'},
+      { id: 16, title: 'Iveagh Gardens', latlng: { lat: 53.335138, lng: -6.261034}, searchTag: 'iveagh'},
+      { id: 17, title: 'Dublin Zoo', latlng: { lat: 53.353270, lng: -6.304371}, searchTag: 'zoo'},
+      { id: 18, title: 'Phoenix Park', latlng: { lat: 53.357404, lng: -6.319303}, searchTag: 'phoenix'}
     ],
 
     // currentLocations state array will hold currently filtered locations, starting with full initial location list by default
@@ -47,9 +48,10 @@ class App extends Component {
       { id: 12, title: 'Zizzi', latlng: { lat: 53.343476, lng: -6.260308}, searchTag: 'zizzi'},
       { id: 13, title: 'St Stephen\'s Green', latlng: { lat: 53.336898, lng: -6.259765}, searchTag: 'stephen'},
       { id: 14, title: 'Cowtown Cafe', latlng: { lat: 53.352355, lng: -6.284246}, searchTag: 'cowtown'},
-      { id: 15, title: 'Iveagh Gardens', latlng: { lat: 53.335138, lng: -6.261034}, searchTag: 'iveagh'},
-      { id: 16, title: 'Dublin Zoo', latlng: { lat: 53.353270, lng: -6.304371}, searchTag: 'zoo'},
-      { id: 17, title: 'Phoenix Park', latlng: { lat: 53.357404, lng: -6.319303}, searchTag: 'phoenix'}
+      { id: 15, title: 'Bunsen', latlng: { lat: 53.345578, lng: -6.264363}, searchTag: 'bunsen'},
+      { id: 16, title: 'Iveagh Gardens', latlng: { lat: 53.335138, lng: -6.261034}, searchTag: 'iveagh'},
+      { id: 17, title: 'Dublin Zoo', latlng: { lat: 53.353270, lng: -6.304371}, searchTag: 'zoo'},
+      { id: 18, title: 'Phoenix Park', latlng: { lat: 53.357404, lng: -6.319303}, searchTag: 'phoenix'}
     ],
 
     query: '',
@@ -135,7 +137,12 @@ class App extends Component {
 
   // toggle location list component visibility
   toggleListPane = () => {
-    this.state.showListPane ? this.setState({ showListPane: false }) : this.setState({ showListPane: true });
+    const listPane = document.querySelector('.location-list');
+    if (listPane.style.display === "none") {
+        listPane.style.display = "block";
+    } else {
+        listPane.style.display = "none";
+    }
   }
 
   render() {
@@ -152,7 +159,7 @@ class App extends Component {
           </div>
           <h1 className="main-header-text" tabIndex="0" >Great Places of Dublin</h1>
         </header>
-        { this.state.showListPane ? <Locations locations={this.state.currentLocations} onUpdateQuery={this.updateQuery} onListSelection={this.selectFromList} /> : null}
+        <Locations locations={this.state.currentLocations} onUpdateQuery={this.updateQuery} onListSelection={this.selectFromList} />   
         <MapComponent locations={this.state.currentLocations} onMapStart={this.updateMapState} animateMarker={this.bounceMarker} />
         <Footer />
       </div>
