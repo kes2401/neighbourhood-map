@@ -87,13 +87,13 @@ class MapComponent extends Component {
 								.then(res => res.json())
 								.then(data => (
 									infoWindow.setContent(
-										'<br><h5><strong>' + marker.title + '</strong></h5>' +
-										'<p class="location-category">' + data.response.venue.categories[0].name + '</p>' + 
-										'<p class="standard-text">' + data.response.venue.location.formattedAddress[0] + ', Dublin City</p>' +
+										'<br><h5 tabIndex="0"><strong>' + marker.title + '</strong></h5>' +
+										'<p class="location-category" tabIndex="0">' + data.response.venue.categories[0].name + '</p>' + 
+										'<p class="standard-text" tabIndex="0">' + data.response.venue.location.formattedAddress[0] + ', Dublin City</p>' +
 										'<div><img class="location-img" src="' + data.response.venue.bestPhoto.prefix + '180x180' + data.response.venue.bestPhoto.suffix + '" alt="' + marker.title + ' image" /></div>' +
-										'<p class="standard-text">' + (data.response.venue.description ? data.response.venue.description : '') + '</p>' +
-										'<p>Rating: ' + data.response.venue.rating + '</p>' +
-										'<a href="' + data.response.venue.shortUrl + '" target="_blank">Foursquare page</a>'
+										'<p class="standard-text" tabIndex="0">' + (data.response.venue.description ? data.response.venue.description : '') + '</p>' +
+										'<p tabIndex="0">Rating: ' + data.response.venue.rating + '</p>' +
+										'<a href="' + data.response.venue.shortUrl + '" target="_blank" tabIndex="0">Foursquare page</a>'
 									)
 				))
 			)).catch(err => {
