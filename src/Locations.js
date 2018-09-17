@@ -11,10 +11,14 @@ class Locations extends Component {
 		this.setState({query: query})
 	}
 
+	style = {
+		display: 'none'
+	}	
+
 	render() {
 
 		return (
-			<div className="location-list">
+			<div className="location-list" style={this.style}>
 				<div className="filter-list">
 					<input type="text" className="filter-input" value={this.state.query} onChange={(event) => {
 						this.updateQuery(event.target.value);

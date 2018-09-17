@@ -46,7 +46,7 @@ class MapComponent extends Component {
 		    scrollwheel: false
 		});
 
-		let largeInfoWindow = new window.google.maps.InfoWindow({ maxWidth: 300 });
+		let largeInfoWindow = new window.google.maps.InfoWindow({ maxWidth: 220 });
 		let bounds = new window.google.maps.LatLngBounds();
 		let markersArr = [];
 
