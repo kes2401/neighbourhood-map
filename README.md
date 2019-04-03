@@ -6,6 +6,8 @@ The app was built with React to develop the UI and help manage the codebase. Map
 
 This app was completed as part of the Udacity's Front-End Web Developer Nanodegree program.
 
+You can view the live application [here] (https://kes2401.github.io/neighbourhood-map/).
+
 
 ## Install & Run
 
